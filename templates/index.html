@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key={{gmaps_api_key}}&callback=initMap&libraries=maps,marker&v=beta"
+      defer
+    ></script>
+
+    <title>CondoGPT</title>
+
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-color: #343541;
+        color: #d1d5db;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 20px;
+      }
+      h1 {
+        color: #fff;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        flex-grow: 1;
+        padding: 15px;
+        border: 1px solid #555;
+        background-color: #40414f;
+        color: #d1d5db;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      input[type="submit"] {
+        padding: 15px 20px;
+        background-color: #10a37f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      input[type="submit"]:hover {
+        background-color: #0e8d6d;
+      }
+      .result,
+      .conversation-history {
+        background-color: #40414f;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        color: #d1d5db;
+      }
+      .result h2,
+      .conversation-history h2 {
+        margin-top: 0;
+        color: #fff;
+      }
+      .conversation-entry {
+        margin-bottom: 10px;
+      }
+      .conversation-entry p {
+        margin: 5px 0;
+      }
+      .conversation-entry .question {
+        color: #10a37f;
+        font-weight: bold;
+      }
+      .markdown-content {
+        padding: 10px;
+        background-color: #2b2c34;
+        border-radius: 5px;
+      }
+      pre {
+        background-color: #2b2c34;
+        padding: 15px;
+        overflow-x: auto;
+        border-radius: 5px;
+        color: #d1d5db;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="{{ url_for('static', filename='images/logo.webp') }}"
+        style="margin: 0 auto; border-radius: 50%; shadow: 0 0 10px #000"
+        alt="CondoGPT Logo"
+        width="200"
+        height="200"
+      />
+      <h1>CondoGPT</h1>
+      <form method="POST">
+        <input
+          type="text"
+          name="question"
+          placeholder="Enter your question here"
+          required
+        />
+        <input type="submit" value="Submit" />
+      </form>
+      {% if result %}
+      <div class="result">
+        <h2>Result:</h2>
+        {% for res in result %}
+        <p>{{ res }}</p>
+        <br />
+        {% endfor %}
+      </div>
+      {% endif %} {% if conversation_history %}
+      <div class="conversation-history">
+        <h2>Conversation History:</h2>
+        {% for entry in conversation_history %}
+        <div class="conversation-entry">
+          <p class="question">Q: {{ entry.question }}</p>
+          <div class="markdown-content">
+            <p>A: {{ entry.answer }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </body>
+  <footer>
+    <form method="POST">
+      <input type="hidden" name="sign_out" value="true" />
+      <input type="submit" value="Clear Memory" />
+    </form>
+  </footer>
+</html>
