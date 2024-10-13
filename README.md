@@ -32,10 +32,17 @@ Please feel free to submit a Pull Request.
 ## Setup
 
 1. Clone the repository
-2. Install dependencies:
-`pip install -r requirements.txt`
-
-3. Set up environment variables:
+2. Prepare the environment and database
+-  virtualenv gpt_env
+-  Log in to psql as superuser (sudo -u postgres psql on Linux)
+-  `CREATE DATABASE condo_gpt`
+   `CREATE USER readonly_user WITH PASSWORD 'password';`
+   `GRANT CONNECT ON DATABASE condo_gpt TO readonly_user;`
+   `GRANT USAGE ON SCHEMA public TO readonly_user;`
+   `GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly_user;`
+   `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readonly_user;`
+   `\q`
+3. Edit your `gpt_env/bin/activate` file and add the following environment variables
 - `GPLACES_API_KEY`: Your Google Places API key
 - `OPENAI_API_KEY`: Your OpenAI API key
 - `FLASK_SECRET` : Flask Secret Phrase (Can be any string)
@@ -43,16 +50,14 @@ Please feel free to submit a Pull Request.
 - `PG_PASSWORD`: Password for your postgres user
 - `PG_PORT`: Port for your postgres database server (default 5432)
 - `PG_DB`: Name of your postgres database
-4. Set up the PostgreSQL database
--  Install psql if you do not have it already
--  Enter `psql`
--  `CREATE DATABASE condogpt;`
--  `\q`
+4. Set up the sample data
 -  Ensure you are in the same directory as sample_db.sql
--  `psql -d condogpt < sample_db.sql`
--   Update the following constants in `main.py`
--       `POSTGRES_USER` `POSTGRES_PASSWORD`, `POSTGRES_PORT`, `POSTGRES_DB`
-
+-  `psql -d condo_gpt < sample_db.sql`
+5. Install dependencies:
+- `source gpt_env/bin/activate`
+- `pip install -r requirements.txt`
+6. Start the application
+`python server.py`
 
 ## Running the Application
 
