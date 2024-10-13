@@ -1,5 +1,7 @@
 # Condo GPT
 
+[![BUILD YOUR AI PORTFOLIO](https://img.youtube.com/vi/k7zFH1PYaRA/0.jpg)](https://www.youtube.com/watch?v=k7zFH1PYaRA)
+
 Condo GPT is an intelligent assistant for querying and analyzing condominium data in Miami. It uses natural language processing to interpret user questions and provide insights about condo buildings, units, sales, and market trends.
 Provided is a sample of the [Condo Cube]([https://duckduckgo.com](https://condo-cube.com/)) database which can be used to query data in the following markets:
 - South Beach
