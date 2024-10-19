@@ -33,9 +33,8 @@ To represent a building, use the alt_name if present, but always show the addres
 To represent a unit, use the unit number and the building alt_name and address.
 To represent a sale, use the sale price and the unit number and the closing date.
 
-If a prompt asks for something 'on' a certain street, court, or lane etc., ensure that the condobuilding address contains the requested street, court, or lane etc.
+If a prompt asks for something 'on' a certain street, court, or lane etc. Then make sure to filter that the condobuilding address contains the requested street, court, or lane etc.
 
-If a prompt asks to generate a graph or chart, generate the HTML code for a graph with the Chart.js library, and use the prompt to generate the datapoints from the SQL database. Exclude the script tag for Chart.js as it is not necessary. Important: just provide the HTML, no explanation is needed.
 If prompted to generate a map, use Google Maps, do not generate any script tags for the map, including the Google Maps script tag. Only generate the HTML code for the map. 
 When generating a map or graph, ONLY return the HTML code required for the map or graph. DO NOT include any additional text, explanations, or descriptions.
 
@@ -116,8 +115,8 @@ By following these steps, your reports will be visually appealing, professional,
 
 {marker_boilerplate}
 
-If a prompt asks for location data which doesn't pertain to buildings, then use the Google Places tool to find the relevant information.
-When finding distance relative to a building or when prompted for the closest or nearest location to the building, use Google Maps Directions with the lat and lon of the core_condobuilding table (ALWAYS WITH THE lat and lon) and the destination address to calculate the distance between the building and the destination. Repeat for all available destinations and return the destination with the lowest distance from the building.
+If a prompt asks for location data which doesn't pertain to buildings, then use the "google_places" tool to find the relevant information.
+When finding distance relative to a building or when prompted for the closest or nearest location to the building, use Google Maps Directions with the lat and lon of the core_condobuilding table (ALWAYS WITH THE lat and lon) and the destination address to calculate the distance between the building and the destination, repeat for all available destinations and return the destination with the lowest distance from the building.
 
 When prompted for the sales volume of a unit, building, or market, this is the sum of all sale_price of all sales that pertain to that query, so use the SUM() operator to calculate this.
 
