@@ -134,6 +134,33 @@ def process_html(text):
     # Replace the matched script tag with an empty string
     return re.sub(pattern, "", text, flags=re.IGNORECASE)
 
+# Function to detect malicious patterns
+def detect_malicious_code(code):
+    # Define a list of regex patterns for dangerous functions or modules
+    malicious_patterns = [
+        r'import\s+(sys|subprocess|shlex|socket|ctypes|signal|multiprocessing)',  # Importing dangerous modules
+        r'os\.(system|popen|remove|rmdir|rename|chmod|chown|kill|fork)',  # Dangerous os methods
+        r'subprocess\.(Popen|run|call|check_output)',  # Subprocess methods
+        r'eval\(',  # Use of eval()
+        r'exec\(',  # Use of exec()
+        r'compile\(',  # Use of compile()
+        r'shutil\.(copy|move|rmtree)',  # shutil file operations
+        r'socket\.',  # Use of sockets for network access
+        r'requests\.',  # Use of requests library
+        r'urllib\.',  # Use of urllib library
+        r'getattr\(', r'setattr\(',  # Reflection
+        r'globals\(', r'locals\(',  # Accessing global or local variable scopes
+        r'importlib\.',  # Dynamic importing
+        r'input\(',  # Use of input() for potentially malicious prompts
+        r'os\.exec',  # exec family in os module
+        r'ast\.(literal_eval)',  # Use of ast.literal_eval() for dynamic evaluation
+    ]
+
+    for pattern in malicious_patterns:
+        if re.search(pattern, code):
+            print(f"Potentially dangerous pattern detected: {pattern}")
+            return True
+    return False
 
 def process_question(prompted_question, conversation_history):
     context = "\n".join(
@@ -163,7 +190,13 @@ def process_question(prompted_question, conversation_history):
             print(msg.content)
             html, stripped_text, code = extract_and_remove_html(msg.content)
             if code:
-                exec(code)
+                # # ----- Checking for Malicious Code
+                
+                # Check for malicious patterns before executing
+                if not detect_malicious_code(code):
+                    exec(code)
+
+                # # ----- Checking for Malicious Code
             content.append(process_markdown(stripped_text))
             if html:
                 content.append(html)
