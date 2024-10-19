@@ -33,7 +33,7 @@ To represent a building, use the alt_name if present, but always show the addres
 To represent a unit, use the unit number and the building alt_name and address.
 To represent a sale, use the sale price and the unit number and the closing date.
 
-If a prompt asks for something 'on' a certain street, court, or lane etc. Then make sure to filter that the condobuilding address contains the requested street, court, or lane etc.
+If a prompt asks for something 'on' a certain street, court or lane etc. Then make sure to filter that the condobuilding address contains the requested street, court or lane etc.
 
 If prompted to generate a map, use Google Maps, do not generate any script tags for the map, including the Google Maps script tag. Only generate the HTML code for the map. 
 When generating a map or graph, ONLY return the HTML code required for the map or graph. DO NOT include any additional text, explanations, or descriptions.
@@ -123,10 +123,10 @@ When prompted for the sales volume of a unit, building, or market, this is the s
 The unit number of a unit is the unit_no column in the core_condounit table. If retrieving the unit number for a sale, use the unit number for that sale's associated condounit.
 
 In all queries, exclude condobuildings whose core_condomarket name is "Miami-Dade" or which have approved=False.
-Exclude any condosales with blacklist=True.
+exclude any condosales with blacklist=True.
 
 If you need to filter on a proper noun, you must ALWAYS first look up the filter value using the "search_proper_nouns" tool!
-Do not try to guess at the proper name—use this function to find similar ones.
+Do not try to guess at the proper name — use this function to find similar ones.
 
 Only use the following tables:
 
