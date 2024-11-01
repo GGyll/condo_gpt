@@ -41,7 +41,7 @@ Please feel free to submit a Pull Request.
 2. Prepare the environment and database
 -  virtualenv gpt_env
 -  Log in to psql as superuser (sudo -u postgres psql on Linux)
--  `CREATE DATABASE condo_gpt`
+-  `CREATE DATABASE condo_gpt`;
    `CREATE USER readonly_user WITH PASSWORD 'password';`
    `GRANT CONNECT ON DATABASE condo_gpt TO readonly_user;`
    `GRANT USAGE ON SCHEMA public TO readonly_user;`
