@@ -1,4 +1,5 @@
 # Condo GPT
+⭐️ Top 3% of real estate projects on GitHub
 
 ## Video
 [![BUILD YOUR AI PORTFOLIO](https://img.youtube.com/vi/k7zFH1PYaRA/0.jpg)](https://www.youtube.com/watch?v=k7zFH1PYaRA)
